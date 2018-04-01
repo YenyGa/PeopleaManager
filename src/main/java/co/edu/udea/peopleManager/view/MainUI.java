@@ -25,10 +25,9 @@ public class MainUI extends UI {
         setContent(uiLayout);
 
         final CssLayout navigationBar = new CssLayout();
-        Label label = new Label("HULK STORE");
-        navigationBar.addComponent(createNavigationButton("Vender", SellProductView.VIEW_NAME));
-        navigationBar.addComponent(createNavigationButton("Registrar producto", NewProductView.VIEW_NAME));
-        navigationBar.addComponent(createNavigationButton("Inventario", InventoryView.VIEW_NAME));
+        Label label = new Label("PEOPLE MANAGER");
+        navigationBar.addComponent(createNavigationButton("Registrar persona", RegisterPersonView.VIEW_NAME));
+        navigationBar.addComponent(createNavigationButton("Listar personas", PeopleListView.VIEW_NAME));
         uiLayout.addComponent(label);
         uiLayout.addComponent(navigationBar);
         uiLayout.setSizeFull();

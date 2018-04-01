@@ -7,8 +7,8 @@ import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
 import com.vaadin.ui.renderers.ButtonRenderer;
 
-import co.edu.udea.peopleManager.business.ProductBusiness;
-import co.edu.udea.peopleManager.model.Product;
+import co.edu.udea.peopleManager.business.PersonBusiness;
+import co.edu.udea.peopleManager.model.Person;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,55 +16,48 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-@SpringView(name = InventoryView.VIEW_NAME)
-public class InventoryView extends VerticalLayout implements View {
+@SpringView(name = PeopleListView.VIEW_NAME)
+public class PeopleListView extends VerticalLayout implements View {
 
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = -5649888709595014944L;
 
-	public static final String VIEW_NAME = "inventory";
+	public static final String VIEW_NAME = "peopleList";
 
-    Grid<Product> grid;
+    Grid<Person> grid;
 
-    List<Product> productList;
+    List<Person> productList;
     
     @Autowired
-    ProductBusiness productBusiness;
+    PersonBusiness personBusiness;
 
     @PostConstruct
     void init() { 	
-    	productList = productBusiness.findAll();
+    	productList = personBusiness.findAll();
     	
     	grid = new Grid<>();
         grid.setItems(productList);
-        grid.addColumn(Product::getId).setCaption("Codigo de barras").setExpandRatio(1);;
-        grid.addColumn(Product::getName).setCaption("Nombre").setExpandRatio(1);;
-        grid.addColumn(Product::getDescription).setCaption("Descripcion").setWidth(200);
-        grid.addColumn(Product::getAmount).setCaption("Cantidad").setWidth(100);
-        grid.addColumn(Product::getPrice).setCaption("Precio").setWidth(100);
-
-        // Render a button that deletes the data row (item)
-        
-        grid.addColumn(person -> "Editar",
-                new ButtonRenderer(clickEvent -> {
-                	Product product = (Product)clickEvent.getItem();
-                	UI.getCurrent().getNavigator().navigateTo(UpdateProductView.VIEW_NAME + "/" + product.getId());
-              })).setWidth(90);
+        grid.addColumn(Person::getId).setCaption("Cédula").setExpandRatio(1);;
+        grid.addColumn(Person::getName).setCaption("Nombre").setExpandRatio(1);;
+        grid.addColumn(Person::getPhone).setCaption("Teléfono");
+        grid.addColumn(Person::getEmail).setCaption("Correo");
+        grid.addColumn(Person::getAddress).setCaption("Dirección");
+        grid.addColumn(Person::getRegisterDate).setCaption("Fecha registro");
         
         grid.addColumn(person -> "Borrar",
               new ButtonRenderer(clickEvent -> {
-            	  Product product = (Product)clickEvent.getItem();
-            	  productBusiness.deleteProduct(product.getId());
-            	  productList.remove(product);
+            	  Person person = (Person)clickEvent.getItem();
+            	  personBusiness.deletePerson(person.getId());
+            	  productList.remove(person);
                   grid.setItems(productList);
             })).setWidth(90);
         
         grid.setSizeFull();
 
         VerticalLayout fields = new VerticalLayout(grid);
-        fields.setCaption("Inventario");
+        fields.setCaption("Listado de personas registradas");
         fields.setSpacing(true);
         fields.setMargin(new MarginInfo(true, true, true, false));
         fields.setSizeFull();

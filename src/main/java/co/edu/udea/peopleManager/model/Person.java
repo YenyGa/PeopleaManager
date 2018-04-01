@@ -1,5 +1,7 @@
 package co.edu.udea.peopleManager.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -21,6 +23,8 @@ public class Person {
 	private String email;
 	@NotNull
 	private boolean deleted;
+	@NotNull
+	private Date registerDate;
 
 	public Person(){}
 
@@ -31,6 +35,8 @@ public class Person {
 		this.address = address;
 		this.phone = phone;
 		this.email = email;
+		this.deleted = false;
+		this.registerDate = new Date();
 	}
 
 	public String getId() {
@@ -73,4 +79,19 @@ public class Person {
 		this.email = email;
 	}
 
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public Date getRegisterDate() {
+		return registerDate;
+	}
+
+	public void setRegisterDate(Date registerDate) {
+		this.registerDate = registerDate;
+	}
 }

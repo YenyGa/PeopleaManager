@@ -9,32 +9,21 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.udea.peopleManager.model.Person;
-import co.edu.udea.peopleManager.model.Product;
 
 public interface PersonDao extends CrudRepository<Person, String>{
 	
-	Product findById(String id);
+	Person findById(String id);
 	
-	List<Person> findAll();
+	@Query("SELECT p FROM Person p WHERE p.deleted = :deleted ORDER BY p.name DESC, p.registerDate DESC")
+	List<Person> findAll(@Param("deleted") boolean deleted);
 	
-	List<Product> findByName(String name);
+	List<Person> findByName(String name);
 	
-	List<Product> findByNameContaining(String name);
-	
-//	@Transactional
-//	@Modifying
-//	@Query("UPDATE Product p SET p.amount = :amount where p.id = :id")
-//	int updateAmountById(@Param("amount") int amount, @Param("id") String id);
-//	
-//	@Transactional
-//	@Modifying
-//	@Query("UPDATE Product p SET p.amount = :amount, p.name = :name, p.description = :description, p.price = :price where p.id = :id")
-//	int updateProduct(@Param("id") String id, @Param("amount") int amount, @Param("name") String name, 
-//			@Param("description") String description, @Param("price") int price);
+	List<Person> findByNameContaining(String name);
 	
 	@Transactional
 	@Modifying
-	@Query("UPDATE Person p SET p.deleted = :deleted where p.id = :id")
-	void deleteById(@Param("deleted") boolean deleted, @Param("id") String id);
+	@Query("UPDATE Person p SET p.deleted = true where p.id = :id")
+	void deleteById(@Param("id") String id);
 
 }

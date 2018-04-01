@@ -5,20 +5,19 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import co.edu.udea.peopleManager.dao.ProductDao;
-import co.edu.udea.peopleManager.model.Product;
+import co.edu.udea.peopleManager.dao.PersonDao;
+import co.edu.udea.peopleManager.model.Person;
 
 @Component
 public class AplicationSetUp {
 
 	@Autowired
-	ProductDao clientDao;
+	PersonDao personDao;
 
 	@PostConstruct
 	public void setUp() {
-		clientDao.save(new Product("12345", "Camiseta mujer Wonder Woman", "Color rojo, Talla XS, Elaborada en algodon", 5, 30000));
-		clientDao.save(new Product("67891", "Camiseta mujer Batman", "Color negro, Talla XS, Elaborada en algodon", 5, 30000));
-		clientDao.save(new Product("67892", "Camiseta hombre Batman", "Color negro, Talla M, Elaborada en algodon", 5, 30000));
-		clientDao.save(new Product("98765", "Mug Agents of Shield", "Cambia de color segun la temperatura del liquido", 10, 40000));
+		personDao.save(new Person("1234", "Daisy Jhonson", "Calle 84 No 43-33", "3466784", "daisyJho@shield.com"));
+		personDao.save(new Person("1234567", "Steve Rogers", "Calle 21 No 53-33", "2345678", "steveRog@shield.com"));
+		personDao.save(new Person("45678", "Phillip Coulson", "Calle 84 No 43-33", "6767897", "coulson@shield.com"));
 	}
 }
