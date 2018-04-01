@@ -25,7 +25,7 @@ public class RegisterPersonView extends VerticalLayout implements View {
 	 */
 	private static final long serialVersionUID = 3124403167539294072L;
 
-	public static final String VIEW_NAME = "registerPerson";
+	public static final String VIEW_NAME = "";
 
     TextField txtId;
     TextField txtName;
