@@ -98,7 +98,7 @@ public class RegisterPersonView extends VerticalLayout implements View {
     	label.setVisible(false);
 
         if (txtId.isEmpty() || txtPhone.isEmpty() || txtAddress.isEmpty() || txtName.isEmpty() || txtEmail.isEmpty() 
-        		|| txtEmail.getValue().equals("0")) {
+        		|| txtEmail.isEmpty()) {
             label.setCaption("<label style='color: red'>Ingrese los datos faltantes</label>");
             label.setVisible(true);
 
